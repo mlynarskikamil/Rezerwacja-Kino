@@ -1,0 +1,25 @@
+﻿<Window x:Class="projZal.wiadomosc"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:projZal"
+        mc:Ignorable="d"
+        Title="wiadomosc" Height="125" Width="200" 
+        WindowStyle="None"
+        AllowsTransparency="True"
+        ResizeMode="CanResizeWithGrip" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="57*"/>
+            <RowDefinition Height="35*"/>
+        </Grid.RowDefinitions>
+        <Rectangle Grid.Row="0" Fill="#FFC72E2E" MouseDown="Rectangle_MouseDown" />
+        <Rectangle Grid.Row="1" Fill="#FF202932" />
+        <Rectangle Grid.Row="2" Fill="#FFC72E2E" />
+        <Label x:Name="tytul" Content="KINO" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" FontSize="14"/>
+        <Label x:Name="wiad" Content="" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Center" Foreground="White"/>
+        <Button x:Name="okBut" Content="OK" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Width="76" Click="button_Click"/>
+    </Grid>
+</Window>

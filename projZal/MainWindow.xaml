@@ -1,0 +1,166 @@
+﻿<Window x:Class="projZal.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:projZal"
+        mc:Ignorable="d"
+        Title="Kino" MinHeight="350" MinWidth="525" MaxHeight="350" MaxWidth="525" WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        ResizeMode="CanResizeWithGrip">
+    <Window.Resources>
+        <Style x:Key="TabItemFocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="3,3,3,1" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="TabControlNormalBorderBrush" Color="#8C8E94"/>
+        <LinearGradientBrush x:Key="ButtonNormalBackground" EndPoint="0,1" StartPoint="0,0">
+            <GradientStop Color="#F3F3F3" Offset="0"/>
+            <GradientStop Color="#EBEBEB" Offset="0.5"/>
+            <GradientStop Color="#DDDDDD" Offset="0.5"/>
+            <GradientStop Color="#CDCDCD" Offset="1"/>
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="TabItemHotBackground" EndPoint="0,1" StartPoint="0,0">
+            <GradientStop Color="#EAF6FD" Offset="0.15"/>
+            <GradientStop Color="#D9F0FC" Offset=".5"/>
+            <GradientStop Color="#BEE6FD" Offset=".5"/>
+            <GradientStop Color="#A7D9F5" Offset="1"/>
+        </LinearGradientBrush>
+        <SolidColorBrush x:Key="TabItemSelectedBackground" Color="#F9F9F9"/>
+        <SolidColorBrush x:Key="TabItemHotBorderBrush" Color="#3C7FB1"/>
+        <SolidColorBrush x:Key="TabItemDisabledBackground" Color="#F4F4F4"/>
+        <SolidColorBrush x:Key="TabItemDisabledBorderBrush" Color="#FFC9C7BA"/>
+        <Style x:Key="TabItemStyle1" TargetType="{x:Type TabItem}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource TabItemFocusVisual}"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Padding" Value="6,1,6,1"/>
+            <Setter Property="BorderBrush" Value="{StaticResource TabControlNormalBorderBrush}"/>
+            <Setter Property="Background" Value="{StaticResource ButtonNormalBackground}"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TabItem}">
+                        <Grid SnapsToDevicePixels="true">
+                            <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1,1,1,0" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
+                                <ContentPresenter x:Name="Content" ContentSource="Header" HorizontalAlignment="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="Bd" Value="{StaticResource TabItemHotBackground}"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="true">
+                                <Setter Property="Panel.ZIndex" Value="1"/>
+                                <Setter Property="Background" TargetName="Bd" Value="#FF202932"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="false">
+                                <Setter Property="Panel.ZIndex" Value="1"/>
+                                <Setter Property="Background" TargetName="Bd" Value="#FFC72E2E"/>
+                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsSelected" Value="false"/>
+                                    <Condition Property="IsMouseOver" Value="true"/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource TabItemHotBorderBrush}"/>
+                            </MultiTrigger>
+                            <Trigger Property="TabStripPlacement" Value="Bottom">
+                                <Setter Property="BorderThickness" TargetName="Bd" Value="1,0,1,1"/>
+                            </Trigger>
+                            <Trigger Property="TabStripPlacement" Value="Left">
+                                <Setter Property="BorderThickness" TargetName="Bd" Value="1,1,0,1"/>
+                            </Trigger>
+                            <Trigger Property="TabStripPlacement" Value="Right">
+                                <Setter Property="BorderThickness" TargetName="Bd" Value="0,1,1,1"/>
+                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsSelected" Value="true"/>
+                                    <Condition Property="TabStripPlacement" Value="Top"/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="Margin" Value="-2,-2,-2,-1"/>
+                                <Setter Property="Margin" TargetName="Content" Value="0,0,0,1"/>
+                            </MultiTrigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsSelected" Value="true"/>
+                                    <Condition Property="TabStripPlacement" Value="Bottom"/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="Margin" Value="-2,-1,-2,-2"/>
+                                <Setter Property="Margin" TargetName="Content" Value="0,1,0,0"/>
+                            </MultiTrigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsSelected" Value="true"/>
+                                    <Condition Property="TabStripPlacement" Value="Left"/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="Margin" Value="-2,-2,-1,-2"/>
+                                <Setter Property="Margin" TargetName="Content" Value="0,0,1,0"/>
+                            </MultiTrigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsSelected" Value="true"/>
+                                    <Condition Property="TabStripPlacement" Value="Right"/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="Margin" Value="-1,-2,-2,-2"/>
+                                <Setter Property="Margin" TargetName="Content" Value="1,0,0,0"/>
+                            </MultiTrigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="Bd" Value="{StaticResource TabItemDisabledBackground}"/>
+                                <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource TabItemDisabledBorderBrush}"/>
+                                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid RenderTransformOrigin="0.461,0.499">
+        <WrapPanel HorizontalAlignment="Left" Height="55" VerticalAlignment="Top" Width="525" Background="#FFC72E2E" MouseDown="WrapPanel_MouseDown">
+            <Label x:Name="KINO" Content="KINO" Width="103" Height="29" Foreground="#FFFDFDFD" FontSize="14" FontWeight="Bold"/>
+        </WrapPanel>
+
+        <TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="321" VerticalAlignment="Top" Width="525" Margin="0,29,0,0" Background="#FFC72E2E" BorderBrush="#FFC72E2E" Foreground="#FFF75252" OpacityMask="#FFF75252">
+            <TabItem Header="Zaloguj się" OpacityMask="White" Margin="38,0,-43,-7" Background="#FF202932" BorderBrush="#FF202932" Foreground="White" Style="{DynamicResource TabItemStyle1}">
+                <Grid Background="#FF202932" Margin="-5,2,-5,-5" HorizontalAlignment="Right" Width="525" Height="292" VerticalAlignment="Top">
+                    <Image x:Name="zamknijImg" HorizontalAlignment="Left" Height="25" Margin="7,-26,0,0" VerticalAlignment="Top" Width="25" Source="./Imgs/exit.png"/>
+                    <TextBox x:Name="pokazHaslo" HorizontalAlignment="Left" Height="24" Margin="195,174,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Background="#FF424C55" BorderThickness="3" BorderBrush="#FFC72E2E" CaretBrush="#FFC72E2E" OpacityMask="#FFC72E2E" Foreground="White"/>
+                    <Button x:Name="zalogujPrzycisk" Content="Zaloguj" HorizontalAlignment="Left" Margin="219,231,0,0" VerticalAlignment="Top" Width="75" Click="zalogujPrzycisk_Click" IsDefault="True"/>
+                    <Label x:Name="login" Content="Login" HorizontalAlignment="Left" Margin="219,61,0,0" VerticalAlignment="Top" Width="75" HorizontalContentAlignment="Center" Foreground="White"/>
+                    <Label x:Name="password" Content="Hasło" HorizontalAlignment="Left" Margin="219,140,0,0" Width="75" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Foreground="White"/>
+                    <TextBox x:Name="loginBox" HorizontalAlignment="Left" Height="23" Margin="195,92,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Background="#FF424C55" Foreground="White" CaretBrush="#FFB93535" BorderBrush="#FFC72E2E" SelectionBrush="#FF264768" OpacityMask="#FFC72E2E" BorderThickness="3"/>
+                    <PasswordBox x:Name="passBox" HorizontalAlignment="Left" Margin="195,174,0,0" VerticalAlignment="Top" Width="120" PasswordChar="*" Background="#FF424C55" BorderBrush="#FFC72E2E" BorderThickness="3" Foreground="White" CaretBrush="#FFC72E2E" OpacityMask="#FFC72E2E"/>
+                    <CheckBox x:Name="pokaz" Content="Pokaż hasło" HorizontalAlignment="Left" Margin="334,0,0,98" VerticalAlignment="Bottom" Checked="pokaz_Checked" Unchecked="pokaz_Unchecked" Foreground="White" Opacity="0.99"/>
+                    <Button x:Name="zamknij" Content="Zamknij" HorizontalAlignment="Left" Margin="0,-26,0,0" VerticalAlignment="Top" Width="37" Click="zamknij_Click" IsCancel="True" Height="26" Opacity="0"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Zarejestruj się" Margin="43,0,-44,-7" Background="#FF202932" BorderBrush="#FF202932" OpacityMask="White" Foreground="White" Style="{DynamicResource TabItemStyle1}">
+                <Grid Background="#FF202932" Margin="-5,2,-5,-5" OpacityMask="Black">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="39*"/>
+                        <ColumnDefinition Width="226*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label x:Name="loginNowy" Content="Podaj nazwę użytkownika" HorizontalAlignment="Left" Margin="22.5,80,0,0" VerticalAlignment="Top" Foreground="White" Grid.Column="1"/>
+                    <Label x:Name="hasloNowe" Content="Podaj hasło" HorizontalAlignment="Left" Margin="96.5,120,0,0" VerticalAlignment="Top" Foreground="White" Grid.Column="1"/>
+                    <TextBox x:Name="wpiszLogin" HorizontalAlignment="Left" Height="23" Margin="190.5,80,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Background="#FF424C55" Foreground="White" BorderBrush="#FFC72E2E" BorderThickness="3" OpacityMask="#FFC72E2E" CaretBrush="#FFC72E2E" Grid.Column="1"/>
+                    <PasswordBox x:Name="wpiszHaslo" HorizontalAlignment="Left" Margin="190.5,126,0,0" VerticalAlignment="Top" Width="120" Background="#FF424C55" Foreground="White" BorderBrush="#FFC72E2E" BorderThickness="3" OpacityMask="#FFC72E2E" CaretBrush="#FFC72E2E" Grid.Column="1"/>
+                    <PasswordBox x:Name="wpiszPonownie" HorizontalAlignment="Left" Margin="190.5,170,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="120" Background="#FF424C55" Foreground="White" BorderBrush="#FFC72E2E" BorderThickness="3" OpacityMask="#FFC72E2E" CaretBrush="#FFC72E2E" Grid.Column="1"/>
+                    <Button x:Name="zarejestrujPrzycisk" Content="Zarejestruj" HorizontalAlignment="Left" Margin="141.5,231,0,0" VerticalAlignment="Top" Width="75" Click="zarejestrujPrzycisk_Click" Grid.Column="1"/>
+                    <Image x:Name="zamknijImg2" HorizontalAlignment="Left" Height="25" Margin="7,-26,0,0" VerticalAlignment="Top" Width="25" Source="./Imgs/exit.png"/>
+                    <Label x:Name="potwierdz" Content="Potwierdź hasło" HorizontalAlignment="Left" Margin="73.5,164,0,0" VerticalAlignment="Top" Foreground="White" Grid.Column="1"/>
+                    <Button x:Name="zamknij2" Content="Zamknij" HorizontalAlignment="Left" Margin="0,-27,0,0" VerticalAlignment="Top" Width="40" Click="zamknij2_Click" IsCancel="True" Height="27" Opacity="0"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+    </Grid>
+</Window>

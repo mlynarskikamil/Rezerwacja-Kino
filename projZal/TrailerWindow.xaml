@@ -1,0 +1,14 @@
+﻿<Window x:Class="projZal.TrailerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:projZal"
+        xmlns:cefSharp="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
+        mc:Ignorable="d"
+        Name="trailerWindow"
+        MinHeight="400" MinWidth="600" MaxHeight="400" MaxWidth="600" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <cefSharp:ChromiumWebBrowser Grid.Row="0" Name="player"/>
+    </Grid>
+</Window>

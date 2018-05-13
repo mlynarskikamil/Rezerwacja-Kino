@@ -1,0 +1,210 @@
+﻿<Window x:Class="projZal.AfterLogin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:projZal"
+        xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
+        mc:Ignorable="d"
+        Title="Kino" MinHeight="350" MinWidth="525" MaxHeight="350" MaxWidth="525" WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        ResizeMode="CanResizeWithGrip">
+    <Window.Resources>
+        <Style x:Key="TabItemFocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="3,3,3,1" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="TabControlNormalBorderBrush" Color="#8C8E94"/>
+        <LinearGradientBrush x:Key="ButtonNormalBackground" EndPoint="0,1" StartPoint="0,0">
+            <GradientStop Color="#F3F3F3" Offset="0"/>
+            <GradientStop Color="#EBEBEB" Offset="0.5"/>
+            <GradientStop Color="#DDDDDD" Offset="0.5"/>
+            <GradientStop Color="#CDCDCD" Offset="1"/>
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="TabItemHotBackground" EndPoint="0,1" StartPoint="0,0">
+            <GradientStop Color="#EAF6FD" Offset="0.15"/>
+            <GradientStop Color="#D9F0FC" Offset=".5"/>
+            <GradientStop Color="#BEE6FD" Offset=".5"/>
+            <GradientStop Color="#A7D9F5" Offset="1"/>
+        </LinearGradientBrush>
+        <SolidColorBrush x:Key="TabItemSelectedBackground" Color="#F9F9F9"/>
+        <SolidColorBrush x:Key="TabItemHotBorderBrush" Color="#3C7FB1"/>
+        <SolidColorBrush x:Key="TabItemDisabledBackground" Color="#F4F4F4"/>
+        <SolidColorBrush x:Key="TabItemDisabledBorderBrush" Color="#FFC9C7BA"/>
+        <Style x:Key="TabItemStyle1" TargetType="{x:Type TabItem}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource TabItemFocusVisual}"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Padding" Value="6,1,6,1"/>
+            <Setter Property="BorderBrush" Value="{StaticResource TabControlNormalBorderBrush}"/>
+            <Setter Property="Background" Value="{StaticResource ButtonNormalBackground}"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TabItem}">
+                        <Grid SnapsToDevicePixels="true">
+                            <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1,1,1,0" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
+                                <ContentPresenter x:Name="Content" ContentSource="Header" HorizontalAlignment="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="Bd" Value="{StaticResource TabItemHotBackground}"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="true">
+                                <Setter Property="Panel.ZIndex" Value="1"/>
+                                <Setter Property="Background" TargetName="Bd" Value="#FF202932"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="false">
+                                <Setter Property="Panel.ZIndex" Value="1"/>
+                                <Setter Property="Background" TargetName="Bd" Value="#FFC72E2E"/>
+                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsSelected" Value="false"/>
+                                    <Condition Property="IsMouseOver" Value="true"/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource TabItemHotBorderBrush}"/>
+                            </MultiTrigger>
+                            <Trigger Property="TabStripPlacement" Value="Bottom">
+                                <Setter Property="BorderThickness" TargetName="Bd" Value="1,0,1,1"/>
+                            </Trigger>
+                            <Trigger Property="TabStripPlacement" Value="Left">
+                                <Setter Property="BorderThickness" TargetName="Bd" Value="1,1,0,1"/>
+                            </Trigger>
+                            <Trigger Property="TabStripPlacement" Value="Right">
+                                <Setter Property="BorderThickness" TargetName="Bd" Value="0,1,1,1"/>
+                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsSelected" Value="true"/>
+                                    <Condition Property="TabStripPlacement" Value="Top"/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="Margin" Value="-2,-2,-2,-1"/>
+                                <Setter Property="Margin" TargetName="Content" Value="0,0,0,1"/>
+                            </MultiTrigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsSelected" Value="true"/>
+                                    <Condition Property="TabStripPlacement" Value="Bottom"/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="Margin" Value="-2,-1,-2,-2"/>
+                                <Setter Property="Margin" TargetName="Content" Value="0,1,0,0"/>
+                            </MultiTrigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsSelected" Value="true"/>
+                                    <Condition Property="TabStripPlacement" Value="Left"/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="Margin" Value="-2,-2,-1,-2"/>
+                                <Setter Property="Margin" TargetName="Content" Value="0,0,1,0"/>
+                            </MultiTrigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsSelected" Value="true"/>
+                                    <Condition Property="TabStripPlacement" Value="Right"/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="Margin" Value="-1,-2,-2,-2"/>
+                                <Setter Property="Margin" TargetName="Content" Value="1,0,0,0"/>
+                            </MultiTrigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="Bd" Value="{StaticResource TabItemDisabledBackground}"/>
+                                <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource TabItemDisabledBorderBrush}"/>
+                                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ButtonFocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle StrokeDashArray="1 2" StrokeThickness="1" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" SnapsToDevicePixels="true" Margin="2"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="ButtonNormalBorder" Color="#FF707070"/>
+        <Style x:Key="ButtonStyle1" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource ButtonFocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource ButtonNormalBackground}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource ButtonNormalBorder}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Themes:ButtonChrome x:Name="Chrome" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}" RenderMouseOver="{TemplateBinding IsDefault}" RenderPressed="{TemplateBinding IsPressed}" RenderDefaulted="{TemplateBinding IsDefaulted}" SnapsToDevicePixels="true">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Themes:ButtonChrome>
+                        <ControlTemplate.Triggers>
+
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid Background="#FF202932">
+        <WrapPanel HorizontalAlignment="Left" Height="56" VerticalAlignment="Top" Width="528" Background="#FFC72E2E" MouseDown="WrapPanel_MouseDown">
+            <Label x:Name="naglowek" Content="Kino" Foreground="White" FontWeight="Bold" FontSize="14"/>
+        </WrapPanel>
+
+        <TabControl x:Name="uiCtrl" Height="323" VerticalAlignment="Top" Margin="0,27,0,0" Background="#FFC72E2E" BorderBrush="#FFC72E2E" SelectionChanged="uiCtrl_SelectionChanged">
+            <TabItem Name="myRes" Margin="32,0,-33,-6" Foreground="White" Background="#FF202932" BorderBrush="#FF202932" Style="{DynamicResource TabItemStyle1}" Header="Moje rezerwacje">
+                <Grid>
+                    <Image HorizontalAlignment="Left" Height="24" Margin="2,-23,0,0" VerticalAlignment="Top" Width="24" Source="./Imgs/log out.png"/>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" Background="#FF202932" Margin="-5,1,-82,-7">
+                        <WrapPanel x:Name="myResWP"/>
+                    </ScrollViewer>
+                    <Button Content="" HorizontalAlignment="Left" Margin="-1,-26,0,0" VerticalAlignment="Top" Width="30" Height="27" Opacity="0" Click="logout"/>
+                </Grid>
+            </TabItem>
+            <TabItem Name="res" Margin="32,0,-33,-6" Foreground="White" Background="#FF202932" BorderBrush="#FF202932" Style="{DynamicResource TabItemStyle1}" Header="Rezerwuj">
+                <Grid>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" Background="#FF202932" Margin="-5,1,-82,-7">
+                        <WrapPanel Name="resWP"/>
+                    </ScrollViewer>
+                    <Image HorizontalAlignment="Left" Height="24" Width="24" Margin="2,-23,0,0" VerticalAlignment="Top" Source="./Imgs/log out.png"/>
+                    <Button Content="" HorizontalAlignment="Left" Margin="-1,-26,0,0" VerticalAlignment="Top" Width="30" Height="30" Click="logout" Opacity="0"/>
+                </Grid>
+            </TabItem>
+            <TabItem Name="conf" Margin="32,0,-33,-6" Foreground="White" Background="#FF202932" BorderBrush="#FF202932" Style="{DynamicResource TabItemStyle1}" Header="Zarządzanie kontem">
+                <Grid Background="#FF202932" Margin="-5,1,-82,-7">
+                    <Label x:Name="wypiszLogin" Content="" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="487" Foreground="White"/>
+                    <Label x:Name="stareHasło" Content="Podaj stare hasło" HorizontalAlignment="Left" Margin="145,104,0,0" VerticalAlignment="Top" Foreground="White"/>
+                    <Label x:Name="label1" Content="Podaj nowe hasło" HorizontalAlignment="Left" Margin="142,143,0,0" VerticalAlignment="Top" Foreground="White"/>
+                    <Label x:Name="label2" Content="Powtórz nowe hasło" HorizontalAlignment="Left" Margin="128,181,0,0" VerticalAlignment="Top" Foreground="White"/>
+                    <Button x:Name="zatwierdzButton" Content="Zatwierdź" HorizontalAlignment="Left" Margin="218,244,0,0" VerticalAlignment="Top" Width="76" Click="zatwierdzButton_Click" BorderBrush="#FF707070" Foreground="Black" Style="{DynamicResource ButtonStyle1}">
+                        <Button.Background>
+                            <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                                <GradientStop Color="#FFF3F3F3"/>
+                                <GradientStop Color="#FFCDCDCD" Offset="1"/>
+                                <GradientStop Color="#FFDDDDDD" Offset="0.5"/>
+                            </LinearGradientBrush>
+                        </Button.Background>
+                    </Button>
+                    <PasswordBox x:Name="stareHasloBox" HorizontalAlignment="Left" Margin="281,106,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.45" Width="120" Background="#FF424C55" BorderBrush="#FFC72E2E" CaretBrush="#FFC72E2E" OpacityMask="#FFC72E2E" BorderThickness="3"/>
+                    <PasswordBox x:Name="noweHasloBox" HorizontalAlignment="Left" Margin="281,145,0,0" VerticalAlignment="Top" Width="120" Background="#FF424C55" BorderBrush="#FFC72E2E" CaretBrush="#FFC72E2E" OpacityMask="#FFC72E2E" BorderThickness="3"/>
+                    <PasswordBox x:Name="nowePotwierdzBox" HorizontalAlignment="Left" Margin="281,183,0,0" VerticalAlignment="Top" Width="120" Background="#FF424C55" BorderBrush="#FFC72E2E" CaretBrush="#FFC72E2E" OpacityMask="#FFC72E2E" BorderThickness="3"/>
+                    <Label x:Name="wypiszId" Content="" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" Width="487" Foreground="White"/>
+                    <Label x:Name="zmiana" Content="Zmiana hasła" HorizontalAlignment="Left" Margin="218,69,0,0" VerticalAlignment="Top" Width="85" Foreground="White"/>
+                    <Image HorizontalAlignment="Left" Height="24" Margin="7,-24,0,0" VerticalAlignment="Top" Width="24" Source="./Imgs/log out.png"/>
+                    <Button Content="" HorizontalAlignment="Left" Margin="4,-27,0,0" VerticalAlignment="Top" Width="30" Height="30" Click="logout" Opacity="0"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
